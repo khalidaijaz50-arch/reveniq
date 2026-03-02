@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RevenIQ — Creator Roster</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #0066FF;
+    --blue-dark: #0047cc;
+    --blue-light: #e8f0ff;
+    --text: #0a0a0a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --bg: #ffffff;
+    --surface: #f8f9fc;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--bg); overflow-x: hidden; }
+
+  /* PASSWORD GATE */
+  .gate {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(160deg, #ffffff 0%, #f0f5ff 60%, #e8f0ff 100%);
+    position: relative; overflow: hidden;
+  }
+  .gate-bg-circle { position: absolute; border-radius: 50%; pointer-events: none; background: radial-gradient(circle, rgba(0,102,255,0.08), transparent 70%); }
+  .gate-bg-circle.c1 { width: 600px; height: 600px; top: -200px; right: -100px; }
+  .gate-bg-circle.c2 { width: 400px; height: 400px; bottom: -100px; left: -50px; }
+  .gate-card {
+    background: #fff; border: 1.5px solid var(--border);
+    border-radius: 24px; padding: 56px 48px;
+    width: 100%; max-width: 440px;
+    box-shadow: 0 20px 80px rgba(0,0,0,0.08);
+    position: relative; z-index: 2; text-align: center;
+  }
+  .gate-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--blue), #60a5fa); border-radius: 24px 24px 0 0; }
+  .gate-logo { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+  .gate-logo em { color: var(--blue); font-style: normal; }
+  .gate-icon { font-size: 48px; margin: 20px 0; }
+  .gate-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+  .gate-sub { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 32px; }
+  .gate-input {
+    width: 100%; background: var(--surface); border: 1.5px solid var(--border);
+    border-radius: 10px; padding: 14px 18px;
+    font-size: 16px; color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    outline: none; text-align: center;
+    letter-spacing: 0.2em;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    margin-bottom: 16px;
+  }
+  .gate-input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(0,102,255,0.1); }
+  .gate-input.error { border-color: #ef4444; box-shadow: 0 0 0 3px rgba(239,68,68,0.1); animation: shake 0.4s ease; }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }
+  .gate-btn {
+    width: 100%; background: var(--blue); color: #fff;
+    border: none; border-radius: 10px; padding: 15px;
+    font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700;
+    cursor: pointer; transition: all 0.2s;
+    box-shadow: 0 4px 20px rgba(0,102,255,0.25);
+    letter-spacing: 0.02em;
+  }
+  .gate-btn:hover { background: var(--blue-dark); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,102,255,0.35); }
+  .gate-error { font-size: 13px; color: #ef4444; margin-top: 12px; display: none; font-weight: 500; }
+  .gate-footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
+  .gate-footer a { color: var(--blue); text-decoration: none; }
+
+  /* ROSTER PAGE */
+  #rosterPage { display: none; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 60px; height: 68px;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+  .nav-logo { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--text); text-decoration: none; }
+  .nav-logo em { color: var(--blue); font-style: normal; }
+  .nav-badge { background: var(--blue-light); color: var(--blue); font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 40px; letter-spacing: 0.08em; }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-lock { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+  .logout-btn { font-size: 13px; color: var(--muted); background: none; border: 1px solid var(--border); padding: 7px 16px; border-radius: 6px; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; }
+  .logout-btn:hover { border-color: var(--blue); color: var(--blue); }
+
+  /* HERO BANNER */
+  .roster-hero {
+    background: linear-gradient(135deg, #050a14 0%, #0d1b3e 100%);
+    padding: 56px 60px; position: relative; overflow: hidden;
+  }
+  .roster-hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(0,102,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(0,102,255,0.07) 1px, transparent 1px); background-size: 40px 40px; }
+  .roster-hero-orb { position: absolute; right: -100px; top: -100px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(0,102,255,0.2), transparent 70%); border-radius: 50%; filter: blur(60px); }
+  .roster-hero-content { position: relative; z-index: 2; }
+  .roster-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,102,255,0.2); border: 1px solid rgba(0,102,255,0.3); padding: 5px 14px; border-radius: 40px; font-size: 11px; font-weight: 700; color: #60a5fa; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; }
+  .roster-title { font-family: 'Syne', sans-serif; font-size: 40px; font-weight: 800; color: #fff; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .roster-title em { color: var(--blue); font-style: normal; }
+  .roster-sub { font-size: 15px; color: rgba(255,255,255,0.55); max-width: 500px; line-height: 1.6; margin-bottom: 32px; }
+  .roster-stats { display: flex; gap: 40px; }
+  .r-stat-num { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; color: #fff; line-height: 1; }
+  .r-stat-num em { color: var(--blue); font-style: normal; }
+  .r-stat-label { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 4px; letter-spacing: 0.04em; }
+  .confidential-tag { display: inline-flex; align-items: center; gap: 6px; background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); color: #fca5a5; font-size: 11px; font-weight: 700; padding: 5px 14px; border-radius: 40px; letter-spacing: 0.08em; margin-top: 24px; }
+
+  /* FILTERS */
+  .filters-bar { padding: 24px 60px; background: var(--surface); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .filter-label { font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-right: 4px; }
+  .filter-btn { padding: 8px 18px; border-radius: 40px; border: 1.5px solid var(--border); font-size: 13px; font-weight: 500; color: var(--muted); cursor: pointer; background: var(--bg); transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+  .filter-btn:hover, .filter-btn.active { border-color: var(--blue); color: var(--blue); background: var(--blue-light); font-weight: 600; }
+
+  /* CREATORS GRID */
+  .creators-section { padding: 48px 60px; }
+  .creators-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .creator-card {
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: 20px; overflow: hidden;
+    transition: all 0.25s;
+  }
+  .creator-card:hover { border-color: var(--blue); transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,102,255,0.1); }
+  .creator-header { padding: 28px 28px 20px; position: relative; }
+  .creator-header.yt { background: linear-gradient(135deg, #0f0f0f, #1a0a0a); }
+  .creator-header.ig { background: linear-gradient(135deg, #1a0533, #2d0b2e); }
+  .creator-header.li { background: linear-gradient(135deg, #0a1628, #0d2a4a); }
+  .creator-header.tw { background: linear-gradient(135deg, #0a0f1a, #0d1a2e); }
+  .platform-tag { position: absolute; top: 16px; right: 16px; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.05em; }
+  .yt-tag { background: #FF0000; color: #fff; }
+  .ig-tag { background: linear-gradient(135deg, #f09433, #dc2743); color: #fff; }
+  .li-tag { background: #0077B5; color: #fff; }
+  .tw-tag { background: #1DA1F2; color: #fff; }
+  .creator-emoji { font-size: 52px; display: block; margin-bottom: 16px; }
+  .creator-name { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 4px; }
+  .creator-handle { font-size: 13px; color: rgba(255,255,255,0.45); margin-bottom: 12px; }
+  .creator-niche-tag { display: inline-block; background: rgba(0,102,255,0.2); border: 1px solid rgba(0,102,255,0.3); color: #60a5fa; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 4px; letter-spacing: 0.05em; }
+  .creator-body { padding: 24px 28px; }
+  .creator-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+  .c-stat { background: var(--surface); border-radius: 8px; padding: 12px 8px; text-align: center; }
+  .c-stat-num { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; color: var(--text); line-height: 1; }
+  .c-stat-num em { color: var(--blue); font-style: normal; }
+  .c-stat-label { font-size: 10px; color: var(--muted); margin-top: 3px; letter-spacing: 0.03em; }
+  .creator-desc { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 20px; }
+  .creator-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+  .creator-tag { font-size: 11px; font-weight: 500; color: var(--muted); background: var(--surface); border: 1px solid var(--border); padding: 3px 10px; border-radius: 4px; }
+  .creator-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 16px; border-top: 1px solid var(--border); }
+  .creator-rate { font-size: 13px; color: var(--text); font-weight: 600; }
+  .creator-rate span { font-size: 11px; color: var(--muted); font-weight: 400; }
+  .contact-btn { background: var(--blue); color: #fff; padding: 8px 18px; border-radius: 8px; font-size: 12px; font-weight: 700; text-decoration: none; font-family: 'Syne', sans-serif; transition: all 0.2s; border: none; cursor: pointer; }
+  .contact-btn:hover { background: var(--blue-dark); transform: translateY(-1px); }
+
+  /* NDA BANNER */
+  .nda-banner { margin: 0 60px 32px; background: #fff9f0; border: 1.5px solid #fcd34d; border-radius: 12px; padding: 16px 24px; display: flex; align-items: center; gap: 12px; font-size: 13px; color: #92400e; font-weight: 500; }
+
+  /* FOOTER */
+  footer { background: #0a0a0a; color: #9ca3af; padding: 32px 60px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-top: 40px; }
+  .footer-logo { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; color: #fff; }
+  .footer-logo em { color: var(--blue); font-style: normal; }
+  .footer-copy { font-size: 12px; }
+
+  @media (max-width: 960px) {
+    nav { padding: 0 20px; }
+    .roster-hero { padding: 40px 24px; }
+    .filters-bar { padding: 20px 24px; }
+    .creators-section { padding: 32px 24px; }
+    .creators-grid { grid-template-columns: 1fr; }
+    .nda-banner { margin: 0 24px 24px; }
+    footer { padding: 28px 24px; flex-direction: column; text-align: center; }
+    .roster-stats { flex-wrap: wrap; gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PASSWORD GATE -->
+<div id="gatePage">
+  <div class="gate">
+    <div class="gate-bg-circle c1"></div>
+    <div class="gate-bg-circle c2"></div>
+    <div class="gate-card">
+      <div class="gate-logo">Reven<em>IQ</em></div>
+      <div class="gate-icon">🔐</div>
+      <div class="gate-title">Creator Roster Access</div>
+      <p class="gate-sub">This page is exclusively for verified brand partners. Enter the access code shared by our team to view our creator network.</p>
+      <input type="password" class="gate-input" id="passwordInput" placeholder="Enter access code" maxlength="20" />
+      <button class="gate-btn" onclick="checkPassword()">Access Roster →</button>
+      <div class="gate-error" id="gateError">❌ Incorrect access code. Please contact us.</div>
+      <div class="gate-footer">
+        Don't have a code? <a href="mailto:partnership@reveniq.co">Contact us</a> or visit <a href="/">reveniq.co</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ROSTER PAGE (hidden until password entered) -->
+<div id="rosterPage">
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo">Reven<em>IQ</em></a>
+    <span class="nav-badge">🔒 CONFIDENTIAL ROSTER</span>
+    <div class="nav-right">
+      <span class="nav-lock">🔐 Secure Access</span>
+      <button class="logout-btn" onclick="logout()">Lock Page</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="roster-hero">
+    <div class="roster-hero-grid"></div>
+    <div class="roster-hero-orb"></div>
+    <div class="roster-hero-content">
+      <div class="roster-badge">● Verified Creator Network</div>
+      <div class="roster-title">RevenIQ <em>Creator Roster</em></div>
+      <p class="roster-sub">Our curated network of tech, AI, and SaaS creators — verified for audience quality, engagement rate, and conversion performance.</p>
+      <div class="roster-stats">
+        <div>
+          <div class="r-stat-num">50<em>+</em></div>
+          <div class="r-stat-label">Active Creators</div>
+        </div>
+        <div>
+          <div class="r-stat-num">8<em>%</em></div>
+          <div class="r-stat-label">Avg Engagement</div>
+        </div>
+        <div>
+          <div class="r-stat-num">3<em>x</em></div>
+          <div class="r-stat-label">Avg ROI</div>
+        </div>
+        <div>
+          <div class="r-stat-num">100<em>%</em></div>
+          <div class="r-stat-label">Tech Niche</div>
+        </div>
+      </div>
+      <div class="confidential-tag">🔴 CONFIDENTIAL — Do not share this page or its contents</div>
+    </div>
+  </div>
+
+  <!-- NDA BANNER -->
+  <div class="nda-banner">
+    ⚠️ <strong>Confidentiality Notice:</strong> The creator information on this page is proprietary to RevenIQ. By accessing this roster, you agree not to contact these creators directly or share this information with third parties.
+  </div>
+
+  <!-- FILTERS -->
+  <div class="filters-bar">
+    <span class="filter-label">Filter:</span>
+    <button class="filter-btn active" onclick="filterCreators('all', this)">All Creators</button>
+    <button class="filter-btn" onclick="filterCreators('youtube', this)">YouTube</button>
+    <button class="filter-btn" onclick="filterCreators('instagram', this)">Instagram</button>
+    <button class="filter-btn" onclick="filterCreators('linkedin', this)">LinkedIn</button>
+    <button class="filter-btn" onclick="filterCreators('ai', this)">AI Tools</button>
+    <button class="filter-btn" onclick="filterCreators('saas', this)">SaaS</button>
+    <button class="filter-btn" onclick="filterCreators('dev', this)">Dev Tools</button>
+  </div>
+
+  <!-- CREATORS GRID -->
+  <div class="creators-section">
+    <div class="creators-grid" id="creatorsGrid">
+
+      <!-- CREATOR 1 -->
+      <div class="creator-card" data-platform="youtube" data-niche="ai">
+        <div class="creator-header yt">
+          <span class="platform-tag yt-tag">▶ YouTube</span>
+          <span class="creator-emoji">👨‍💻</span>
+          <div class="creator-name">Creator Slot #1</div>
+          <div class="creator-handle">@handle — Add when confirmed</div>
+          <span class="creator-niche-tag">AI Tools</span>
+        </div>
+        <div class="creator-body">
+          <div class="creator-stats-grid">
+            <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Subscribers</div></div>
+            <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Eng. Rate</div></div>
+            <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Avg Views</div></div>
+          </div>
+          <p class="creator-desc">This slot is reserved for a confirmed YouTube creator in the AI Tools niche. Contact us to discuss creator availability for your campaign.</p>
+          <div class="creator-tags">
+            <span class="creator-tag">AI Tools</span>
+            <span class="creator-tag">Productivity</span>
+            <span class="creator-tag">Tech Reviews</span>
+          </div>
+          <div class="creator-footer">
+            <div class="creator-rate">Rate: <span>Contact for pricing</span></div>
+            <a href="mailto:partnership@reveniq.co?subject=Creator Inquiry #1" class="contact-btn">Inquire →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CREATOR 2 -->
+      <div class="creator-card" data-platform="instagram" data-niche="saas">
+        <div class="creator-header ig">
+          <span class="platform-tag ig-tag">📸 Instagram</span>
+          <span class="creator-emoji">👩‍💼</span>
+          <div class="creator-name">Creator Slot #2</div>
+          <div class="creator-handle">@handle — Add when confirmed</div>
+          <span class="creator-niche-tag">SaaS</span>
+        </div>
+        <div class="creator-body">
+          <div class="creator-stats-grid">
+            <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Followers</div></div>
+            <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Eng. Rate</div></div>
+            <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Avg Reach</div></div>
+          </div>
+          <p class="creator-desc">This slot is reserved for a confirmed Instagram creator in the SaaS niche. Contact us to discuss creator availability for your campaign.</p>
+          <div class="creator-tags">
+            <span class="creator-tag">SaaS</span>
+            <span class="creator-tag">Startups</span>
+            <span class="creator-tag">B2B</span>
+          </div>
+          <div class="creator-footer">
+            <div class="creator-rate">Rate: <span>Contact for pricing</span></div>
+            <a href="mailto:partnership@reveniq.co?subject=Creator Inquiry #2" class="contact-btn">Inquire →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CREATOR 3 -->
+      <div class="creator-card" data-platform="youtube" data-niche="dev">
+        <div class="creator-header yt">
+          <span class="platform-tag yt-tag">▶ YouTube</span>
+          <span class="creator-emoji">🧑‍🔬</span>
+          <div class="creator-name">Creator Slot #3</div>
+          <div class="creator-handle">@handle — Add when confirmed</div>
+          <span class="creator-niche-tag">Dev Tools</span>
+        </div>
+        <div class="creator-body">
+          <div class="creator-stats-grid">
+            <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Subscribers</div></div>
+            <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Eng. Rate</div></div>
+            <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Avg Views</div></div>
+          </div>
+          <p class="creator-desc">This slot is reserved for a confirmed YouTube creator in the Developer Tools niche. Contact us to discuss availability.</p>
+          <div class="creator-tags">
+            <span class="creator-tag">Dev Tools</span>
+            <span class="creator-tag">APIs</span>
+            <span class="creator-tag">Coding</span>
+          </div>
+          <div class="creator-footer">
+            <div class="creator-rate">Rate: <span>Contact for pricing</span></div>
+            <a href="mailto:partnership@reveniq.co?subject=Creator Inquiry #3" class="contact-btn">Inquire →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CREATOR 4 -->
+      <div class="creator-card" data-platform="linkedin" data-niche="saas">
+        <div class="creator-header li">
+          <span class="platform-tag li-tag">in LinkedIn</span>
+          <span class="creator-emoji">👔</span>
+          <div class="creator-name">Creator Slot #4</div>
+          <div class="creator-handle">@handle — Add when confirmed</div>
+          <span class="creator-niche-tag">SaaS</span>
+        </div>
+        <div class="creator-body">
+          <div class="creator-stats-grid">
+            <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Followers</div></div>
+            <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Eng. Rate</div></div>
+            <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Impressions</div></div>
+          </div>
+          <p class="creator-desc">This slot is reserved for a confirmed LinkedIn creator in the SaaS / B2B niche. Ideal for enterprise and decision-maker targeting.</p>
+          <div class="creator-tags">
+            <span class="creator-tag">SaaS</span>
+            <span class="creator-tag">B2B</span>
+            <span class="creator-tag">Enterprise</span>
+          </div>
+          <div class="creator-footer">
+            <div class="creator-rate">Rate: <span>Contact for pricing</span></div>
+            <a href="mailto:partnership@reveniq.co?subject=Creator Inquiry #4" class="contact-btn">Inquire →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CREATOR 5 -->
+      <div class="creator-card" data-platform="instagram" data-niche="ai">
+        <div class="creator-header ig">
+          <span class="platform-tag ig-tag">📸 Instagram</span>
+          <span class="creator-emoji">🤖</span>
+          <div class="creator-name">Creator Slot #5</div>
+          <div class="creator-handle">@handle — Add when confirmed</div>
+          <span class="creator-niche-tag">AI Tools</span>
+        </div>
+        <div class="creator-body">
+          <div class="creator-stats-grid">
+            <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Followers</div></div>
+            <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Eng. Rate</div></div>
+            <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Avg Reach</div></div>
+          </div>
+          <p class="creator-desc">This slot is reserved for a confirmed Instagram creator focused on AI tools and automation. Strong Reels performance.</p>
+          <div class="creator-tags">
+            <span class="creator-tag">AI Tools</span>
+            <span class="creator-tag">Automation</span>
+            <span class="creator-tag">No-Code</span>
+          </div>
+          <div class="creator-footer">
+            <div class="creator-rate">Rate: <span>Contact for pricing</span></div>
+            <a href="mailto:partnership@reveniq.co?subject=Creator Inquiry #5" class="contact-btn">Inquire →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CREATOR 6 -->
+      <div class="creator-card" data-platform="youtube" data-niche="saas">
+        <div class="creator-header yt">
+          <span class="platform-tag yt-tag">▶ YouTube</span>
+          <span class="creator-emoji">📊</span>
+          <div class="creator-name">Creator Slot #6</div>
+          <div class="creator-handle">@handle — Add when confirmed</div>
+          <span class="creator-niche-tag">SaaS</span>
+        </div>
+        <div class="creator-body">
+          <div class="creator-stats-grid">
+            <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Subscribers</div></div>
+            <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Eng. Rate</div></div>
+            <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Avg Views</div></div>
+          </div>
+          <p class="creator-desc">This slot is reserved for a confirmed YouTube creator in the SaaS review and comparison niche. High purchase-intent audience.</p>
+          <div class="creator-tags">
+            <span class="creator-tag">SaaS Reviews</span>
+            <span class="creator-tag">Software</span>
+            <span class="creator-tag">Productivity</span>
+          </div>
+          <div class="creator-footer">
+            <div class="creator-rate">Rate: <span>Contact for pricing</span></div>
+            <a href="mailto:partnership@reveniq.co?subject=Creator Inquiry #6" class="contact-btn">Inquire →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">Reven<em>IQ</em></div>
+    <p class="footer-copy">© 2025 RevenIQ. Confidential — Authorized Access Only.</p>
+  </footer>
+
+</div>
+
+<script>
+  // PASSWORD — change this to whatever you want
+  const ACCESS_CODE = 'reveniq2025';
+
+  function checkPassword() {
+    const input = document.getElementById('passwordInput').value.trim();
+    if (input === ACCESS_CODE) {
+      sessionStorage.setItem('riq_auth', 'true');
+      showRoster();
+    } else {
+      const inp = document.getElementById('passwordInput');
+      inp.classList.add('error');
+      document.getElementById('gateError').style.display = 'block';
+      setTimeout(() => inp.classList.remove('error'), 500);
+    }
+  }
+
+  function showRoster() {
+    document.getElementById('gatePage').style.display = 'none';
+    document.getElementById('rosterPage').style.display = 'block';
+  }
+
+  function logout() {
+    sessionStorage.removeItem('riq_auth');
+    document.getElementById('gatePage').style.display = 'flex';
+    document.getElementById('rosterPage').style.display = 'none';
+    document.getElementById('passwordInput').value = '';
+    document.getElementById('gateError').style.display = 'none';
+  }
+
+  // Allow Enter key
+  document.getElementById('passwordInput').addEventListener('keypress', e => {
+    if (e.key === 'Enter') checkPassword();
+  });
+
+  // Auto-login if already authenticated this session
+  if (sessionStorage.getItem('riq_auth') === 'true') showRoster();
+
+  // Filter creators
+  function filterCreators(type, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.creator-card').forEach(card => {
+      if (type === 'all') { card.style.display = 'block'; return; }
+      const platform = card.dataset.platform;
+      const niche = card.dataset.niche;
+      card.style.display = (platform === type || niche === type) ? 'block' : 'none';
+    });
+  }
+</script>
+</body>
+</html>
