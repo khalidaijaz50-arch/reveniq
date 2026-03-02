@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RevenIQ — Creator Roster</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #0066FF;
+    --blue-dark: #0047cc;
+    --blue-light: #e8f0ff;
+    --text: #0a0a0a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --bg: #ffffff;
+    --surface: #f8f9fc;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--bg); }
+
+  /* NAV */
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 0 60px; height: 68px; background: #fff; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+  .nav-logo { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--text); text-decoration: none; }
+  .nav-logo em { color: var(--blue); font-style: normal; }
+  .nav-badge { background: var(--blue-light); color: var(--blue); font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 40px; letter-spacing: 0.08em; }
+  .back-btn { font-size: 13px; color: var(--muted); background: none; border: 1px solid var(--border); padding: 7px 16px; border-radius: 6px; cursor: pointer; font-family: 'DM Sans', sans-serif; text-decoration: none; }
+
+  /* HERO */
+  .hero { background: linear-gradient(135deg, #050a14 0%, #0d1b3e 100%); padding: 56px 60px; position: relative; overflow: hidden; }
+  .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(0,102,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(0,102,255,0.07) 1px, transparent 1px); background-size: 40px 40px; }
+  .hero-orb { position: absolute; right: -100px; top: -100px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(0,102,255,0.2), transparent 70%); border-radius: 50%; filter: blur(60px); }
+  .hero-content { position: relative; z-index: 2; }
+  .roster-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,102,255,0.2); border: 1px solid rgba(0,102,255,0.3); padding: 5px 14px; border-radius: 40px; font-size: 11px; font-weight: 700; color: #60a5fa; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; }
+  .hero-title { font-family: 'Syne', sans-serif; font-size: clamp(28px, 4vw, 40px); font-weight: 800; color: #fff; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .hero-title em { color: var(--blue); font-style: normal; }
+  .hero-sub { font-size: 15px; color: rgba(255,255,255,0.55); max-width: 500px; line-height: 1.6; margin-bottom: 32px; }
+  .hero-stats { display: flex; gap: 40px; flex-wrap: wrap; }
+  .r-stat-num { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; color: #fff; line-height: 1; }
+  .r-stat-num em { color: var(--blue); font-style: normal; }
+  .r-stat-label { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 4px; }
+  .confidential-tag { display: inline-flex; align-items: center; gap: 6px; background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); color: #fca5a5; font-size: 11px; font-weight: 700; padding: 5px 14px; border-radius: 40px; letter-spacing: 0.08em; margin-top: 24px; }
+
+  /* NDA */
+  .nda { margin: 24px 60px 0; background: #fff9f0; border: 1.5px solid #fcd34d; border-radius: 12px; padding: 14px 20px; font-size: 13px; color: #92400e; font-weight: 500; }
+
+  /* FILTERS */
+  .filters { padding: 20px 60px; background: var(--surface); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .filter-label { font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+  .filter-btn { padding: 7px 16px; border-radius: 40px; border: 1.5px solid var(--border); font-size: 13px; font-weight: 500; color: var(--muted); cursor: pointer; background: var(--bg); font-family: 'DM Sans', sans-serif; -webkit-appearance: none; }
+  .filter-btn.active, .filter-btn:active { border-color: var(--blue); color: var(--blue); background: var(--blue-light); font-weight: 600; }
+
+  /* GRID */
+  .grid-section { padding: 40px 60px; }
+  .creators-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .creator-card { background: var(--bg); border: 1.5px solid var(--border); border-radius: 20px; overflow: hidden; }
+  .creator-header { padding: 28px 28px 20px; position: relative; }
+  .yt { background: linear-gradient(135deg, #0f0f0f, #1a0a0a); }
+  .ig { background: linear-gradient(135deg, #1a0533, #2d0b2e); }
+  .li { background: linear-gradient(135deg, #0a1628, #0d2a4a); }
+  .platform-tag { position: absolute; top: 16px; right: 16px; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; }
+  .yt-tag { background: #FF0000; color: #fff; }
+  .ig-tag { background: linear-gradient(135deg, #f09433, #dc2743); color: #fff; }
+  .li-tag { background: #0077B5; color: #fff; }
+  .creator-emoji { font-size: 48px; display: block; margin-bottom: 14px; }
+  .creator-name { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 4px; }
+  .creator-handle { font-size: 13px; color: rgba(255,255,255,0.45); margin-bottom: 10px; }
+  .niche-tag { display: inline-block; background: rgba(0,102,255,0.2); border: 1px solid rgba(0,102,255,0.3); color: #60a5fa; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 4px; }
+  .creator-body { padding: 22px 28px; }
+  .stats-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 18px; }
+  .c-stat { background: var(--surface); border-radius: 8px; padding: 10px 6px; text-align: center; }
+  .c-stat-num { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 800; color: var(--text); }
+  .c-stat-num em { color: var(--blue); font-style: normal; }
+  .c-stat-label { font-size: 10px; color: var(--muted); margin-top: 2px; }
+  .creator-desc { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
+  .creator-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+  .tag { font-size: 11px; color: var(--muted); background: var(--surface); border: 1px solid var(--border); padding: 3px 10px; border-radius: 4px; }
+  .card-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 14px; border-top: 1px solid var(--border); }
+  .rate { font-size: 13px; color: var(--text); font-weight: 600; }
+  .rate span { font-size: 11px; color: var(--muted); font-weight: 400; }
+  .inquire-btn { background: var(--blue); color: #fff; padding: 8px 18px; border-radius: 8px; font-size: 12px; font-weight: 700; text-decoration: none; font-family: 'Syne', sans-serif; }
+
+  footer { background: #0a0a0a; color: #9ca3af; padding: 28px 60px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-top: 20px; }
+  .footer-logo { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; color: #fff; }
+  .footer-logo em { color: var(--blue); font-style: normal; }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .hero { padding: 40px 20px; }
+    .nda { margin: 20px 20px 0; }
+    .filters { padding: 16px 20px; }
+    .grid-section { padding: 28px 20px; }
+    .creators-grid { grid-template-columns: 1fr; }
+    footer { padding: 24px 20px; flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Reven<em>IQ</em></a>
+  <span class="nav-badge">🔒 CONFIDENTIAL</span>
+  <a href="/creators.html" class="back-btn">← Lock Page</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-orb"></div>
+  <div class="hero-content">
+    <div class="roster-badge">● Verified Creator Network</div>
+    <div class="hero-title">RevenIQ <em>Creator Roster</em></div>
+    <p class="hero-sub">Curated tech, AI, and SaaS creators — verified for audience quality, engagement, and conversion performance.</p>
+    <div class="hero-stats">
+      <div><div class="r-stat-num">50<em>+</em></div><div class="r-stat-label">Active Creators</div></div>
+      <div><div class="r-stat-num">8<em>%</em></div><div class="r-stat-label">Avg Engagement</div></div>
+      <div><div class="r-stat-num">3<em>x</em></div><div class="r-stat-label">Avg ROI</div></div>
+      <div><div class="r-stat-num">100<em>%</em></div><div class="r-stat-label">Tech Niche</div></div>
+    </div>
+    <div class="confidential-tag">🔴 CONFIDENTIAL — Do not share this page</div>
+  </div>
+</div>
+
+<div class="nda">⚠️ <strong>Confidentiality Notice:</strong> This creator information is proprietary to RevenIQ. By accessing this roster, you agree not to contact these creators directly or share this information with third parties.</div>
+
+<div class="filters">
+  <span class="filter-label">Filter:</span>
+  <button class="filter-btn active" onclick="filter('all',this)">All</button>
+  <button class="filter-btn" onclick="filter('youtube',this)">YouTube</button>
+  <button class="filter-btn" onclick="filter('instagram',this)">Instagram</button>
+  <button class="filter-btn" onclick="filter('linkedin',this)">LinkedIn</button>
+  <button class="filter-btn" onclick="filter('ai',this)">AI Tools</button>
+  <button class="filter-btn" onclick="filter('saas',this)">SaaS</button>
+  <button class="filter-btn" onclick="filter('dev',this)">Dev Tools</button>
+</div>
+
+<div class="grid-section">
+  <div class="creators-grid" id="grid">
+
+    <div class="creator-card" data-p="youtube" data-n="ai">
+      <div class="creator-header yt">
+        <span class="platform-tag yt-tag">▶ YouTube</span>
+        <span class="creator-emoji">👨‍💻</span>
+        <div class="creator-name">Creator Slot #1</div>
+        <div class="creator-handle">@handle — Add when confirmed</div>
+        <span class="niche-tag">AI Tools</span>
+      </div>
+      <div class="creator-body">
+        <div class="stats-grid">
+          <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Subscribers</div></div>
+          <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Eng. Rate</div></div>
+          <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Avg Views</div></div>
+        </div>
+        <p class="creator-desc">Reserved for a confirmed YouTube creator in the AI Tools niche. Contact us to discuss availability for your campaign.</p>
+        <div class="creator-tags"><span class="tag">AI Tools</span><span class="tag">Productivity</span><span class="tag">Tech Reviews</span></div>
+        <div class="card-footer">
+          <div class="rate">Rate: <span>Contact for pricing</span></div>
+          <a href="mailto:partnership@reveniq.co?subject=Creator Inquiry %231" class="inquire-btn">Inquire →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="creator-card" data-p="instagram" data-n="saas">
+      <div class="creator-header ig">
+        <span class="platform-tag ig-tag">📸 Instagram</span>
+        <span class="creator-emoji">👩‍💼</span>
+        <div class="creator-name">Creator Slot #2</div>
+        <div class="creator-handle">@handle — Add when confirmed</div>
+        <span class="niche-tag">SaaS</span>
+      </div>
+      <div class="creator-body">
+        <div class="stats-grid">
+          <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Followers</div></div>
+          <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Eng. Rate</div></div>
+          <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Avg Reach</div></div>
+        </div>
+        <p class="creator-desc">Reserved for a confirmed Instagram creator in the SaaS niche. Contact us to discuss availability.</p>
+        <div class="creator-tags"><span class="tag">SaaS</span><span class="tag">Startups</span><span class="tag">B2B</span></div>
+        <div class="card-footer">
+          <div class="rate">Rate: <span>Contact for pricing</span></div>
+          <a href="mailto:partnership@reveniq.co?subject=Creator Inquiry %232" class="inquire-btn">Inquire →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="creator-card" data-p="youtube" data-n="dev">
+      <div class="creator-header yt">
+        <span class="platform-tag yt-tag">▶ YouTube</span>
+        <span class="creator-emoji">🧑‍🔬</span>
+        <div class="creator-name">Creator Slot #3</div>
+        <div class="creator-handle">@handle — Add when confirmed</div>
+        <span class="niche-tag">Dev Tools</span>
+      </div>
+      <div class="creator-body">
+        <div class="stats-grid">
+          <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Subscribers</div></div>
+          <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Eng. Rate</div></div>
+          <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Avg Views</div></div>
+        </div>
+        <p class="creator-desc">Reserved for a confirmed YouTube creator in the Developer Tools niche. Contact us to discuss availability.</p>
+        <div class="creator-tags"><span class="tag">Dev Tools</span><span class="tag">APIs</span><span class="tag">Coding</span></div>
+        <div class="card-footer">
+          <div class="rate">Rate: <span>Contact for pricing</span></div>
+          <a href="mailto:partnership@reveniq.co?subject=Creator Inquiry %233" class="inquire-btn">Inquire →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="creator-card" data-p="linkedin" data-n="saas">
+      <div class="creator-header li">
+        <span class="platform-tag li-tag">in LinkedIn</span>
+        <span class="creator-emoji">👔</span>
+        <div class="creator-name">Creator Slot #4</div>
+        <div class="creator-handle">@handle — Add when confirmed</div>
+        <span class="niche-tag">SaaS</span>
+      </div>
+      <div class="creator-body">
+        <div class="stats-grid">
+          <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Followers</div></div>
+          <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Eng. Rate</div></div>
+          <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Impressions</div></div>
+        </div>
+        <p class="creator-desc">Reserved for a confirmed LinkedIn creator in the SaaS / B2B niche. Ideal for enterprise targeting.</p>
+        <div class="creator-tags"><span class="tag">SaaS</span><span class="tag">B2B</span><span class="tag">Enterprise</span></div>
+        <div class="card-footer">
+          <div class="rate">Rate: <span>Contact for pricing</span></div>
+          <a href="mailto:partnership@reveniq.co?subject=Creator Inquiry %234" class="inquire-btn">Inquire →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="creator-card" data-p="instagram" data-n="ai">
+      <div class="creator-header ig">
+        <span class="platform-tag ig-tag">📸 Instagram</span>
+        <span class="creator-emoji">🤖</span>
+        <div class="creator-name">Creator Slot #5</div>
+        <div class="creator-handle">@handle — Add when confirmed</div>
+        <span class="niche-tag">AI Tools</span>
+      </div>
+      <div class="creator-body">
+        <div class="stats-grid">
+          <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Followers</div></div>
+          <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Eng. Rate</div></div>
+          <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Avg Reach</div></div>
+        </div>
+        <p class="creator-desc">Reserved for a confirmed Instagram creator focused on AI tools and automation. Strong Reels performance.</p>
+        <div class="creator-tags"><span class="tag">AI Tools</span><span class="tag">Automation</span><span class="tag">No-Code</span></div>
+        <div class="card-footer">
+          <div class="rate">Rate: <span>Contact for pricing</span></div>
+          <a href="mailto:partnership@reveniq.co?subject=Creator Inquiry %235" class="inquire-btn">Inquire →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="creator-card" data-p="youtube" data-n="saas">
+      <div class="creator-header yt">
+        <span class="platform-tag yt-tag">▶ YouTube</span>
+        <span class="creator-emoji">📊</span>
+        <div class="creator-name">Creator Slot #6</div>
+        <div class="creator-handle">@handle — Add when confirmed</div>
+        <span class="niche-tag">SaaS</span>
+      </div>
+      <div class="creator-body">
+        <div class="stats-grid">
+          <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Subscribers</div></div>
+          <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Eng. Rate</div></div>
+          <div class="c-stat"><div class="c-stat-num">—</div><div class="c-stat-label">Avg Views</div></div>
+        </div>
+        <p class="creator-desc">Reserved for a confirmed YouTube creator in the SaaS review niche. High purchase-intent audience.</p>
+        <div class="creator-tags"><span class="tag">SaaS Reviews</span><span class="tag">Software</span><span class="tag">Productivity</span></div>
+        <div class="card-footer">
+          <div class="rate">Rate: <span>Contact for pricing</span></div>
+          <a href="mailto:partnership@reveniq.co?subject=Creator Inquiry %236" class="inquire-btn">Inquire →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">Reven<em>IQ</em></div>
+  <p style="font-size:12px;">© 2025 RevenIQ. Confidential — Authorized Access Only.</p>
+</footer>
+
+<script>
+  function filter(type, btn) {
+    document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    document.querySelectorAll('.creator-card').forEach(function(card) {
+      if (type === 'all') { card.style.display = 'block'; return; }
+      card.style.display = (card.dataset.p === type || card.dataset.n === type) ? 'block' : 'none';
+    });
+  }
+</script>
+</body>
+</html>
