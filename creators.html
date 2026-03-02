@@ -46,28 +46,27 @@
     color: #0a0a0a;
     background: #f8f9fc;
     outline: none;
-    display: block;
-    width: 100%;
     -webkit-appearance: none;
+    display: block;
   }
   input[type="password"]:focus { border-color: #0066FF; }
-  a.btn {
-    display: block;
+  input[type="submit"] {
     width: 100%;
     padding: 15px;
     background: #0066FF;
     color: #fff;
+    border: none;
     border-radius: 10px;
     font-family: 'Syne', sans-serif;
     font-size: 15px;
     font-weight: 700;
-    text-decoration: none;
     cursor: pointer;
     -webkit-appearance: none;
-    margin-top: 4px;
+    display: block;
   }
-  a.btn:active { background: #0047cc; }
+  input[type="submit"]:active { background: #0047cc; }
   .error { color: #ef4444; font-size: 13px; margin-top: 12px; display: none; }
+  .success { color: #16a34a; font-size: 13px; margin-top: 12px; display: none; }
   .footer { margin-top: 24px; font-size: 12px; color: #9ca3af; }
   .footer a { color: #0066FF; text-decoration: none; }
 </style>
@@ -78,25 +77,32 @@
   <span class="icon">🔐</span>
   <h1>Creator Roster Access</h1>
   <p>Enter the access code shared by our team to view our exclusive creator network.</p>
-  <input type="password" id="pwd" placeholder="Enter access code" autocomplete="off" />
-  <a class="btn" id="btn" href="#">Access Roster →</a>
-  <div class="error" id="err">❌ Wrong code. Contact partnership@reveniq.co</div>
+  <form id="f" action="/roster.html" method="get" onsubmit="return go(event)">
+    <input type="password" id="pwd" placeholder="Enter access code" autocomplete="off" />
+    <input type="submit" value="Access Roster →" />
+    <div class="error" id="err">❌ Wrong code. Contact partnership@reveniq.co</div>
+    <div class="success" id="ok">✅ Correct! Opening roster...</div>
+  </form>
   <div class="footer">No code? <a href="mailto:partnership@reveniq.co">Contact us</a> · <a href="/">reveniq.co</a></div>
 </div>
 <script>
-  document.getElementById('btn').addEventListener('click', function(e) {
-    e.preventDefault();
-    if (document.getElementById('pwd').value.trim() === 'reveniq2025') {
-      window.location.replace('/roster.html');
-    } else {
-      document.getElementById('err').style.display = 'block';
-      document.getElementById('pwd').value = '';
-      document.getElementById('pwd').focus();
-    }
-  });
-  document.getElementById('pwd').addEventListener('keydown', function(e) {
-    if (e.keyCode === 13) document.getElementById('btn').click();
-  });
+function go(e) {
+  e.preventDefault();
+  var pwd = document.getElementById('pwd').value.trim();
+  if (pwd === 'reveniq2025') {
+    document.getElementById('err').style.display = 'none';
+    document.getElementById('ok').style.display = 'block';
+    document.querySelector('input[type=submit]').value = 'Opening...';
+    // Small delay then redirect — iOS Safari requires user-initiated navigation
+    setTimeout(function() {
+      window.location.href = '/roster.html';
+    }, 300);
+  } else {
+    document.getElementById('err').style.display = 'block';
+    document.getElementById('pwd').value = '';
+  }
+  return false;
+}
 </script>
 </body>
 </html>
