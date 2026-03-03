@@ -818,7 +818,7 @@
     </div>
     <div class="reveal">
       <div class="form-card">
-        <form name="reveniq-inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="inquiryForm">
+        <form name="reveniq-inquiry" method="POST" action="https://api.web3forms.com/submit" id="inquiryForm">
           <input type="hidden" name="form-name" value="reveniq-inquiry" />
           <p style="display:none"><input name="bot-field" /></p>
           <div class="form-grid">
@@ -980,7 +980,7 @@
   if (form) {
     form.addEventListener('submit', function(e) {
       e.preventDefault();
-      fetch('/', { method: 'POST', body: new FormData(form) })
+      fetch('https://api.web3forms.com/submit', { method: 'POST', body: new FormData(form) })
         .then(() => { form.style.display = 'none'; document.getElementById('formSuccess').style.display = 'block'; })
         .catch(() => alert('Something went wrong. Please email us at partnership@reveniq.co'));
     });
