@@ -818,9 +818,12 @@
     </div>
     <div class="reveal">
       <div class="form-card">
-        <form name="reveniq-inquiry" method="POST" action="https://api.web3forms.com/submit" id="inquiryForm">
-          <input type="hidden" name="form-name" value="reveniq-inquiry" />
-          <p style="display:none"><input name="bot-field" /></p>
+      <form method="POST" action="https://api.web3forms.com/submit" id="inquiryForm">
+          <input type="hidden" name="access_key" value="cde5d841-8ca2-4ff2-941c-c9d856cddc15" />
+<input type="hidden" name="subject" value="New Campaign Inquiry — RevenIQ" />
+<input type="checkbox" name="botcheck" style="display:none" />
+
+          
           <div class="form-grid">
             <div class="form-group"><label>Brand Name <span>*</span></label><input type="text" name="brand-name" placeholder="e.g. Notion, Copy.ai" required /></div>
             <div class="form-group"><label>Your Name <span>*</span></label><input type="text" name="your-name" placeholder="Full name" required /></div>
