@@ -14,18 +14,6 @@
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="manifest" href="/site.webmanifest">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-<!-- Google Logo Schema -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "RevenIQ",
-  "url": "https://reveniq.co",
-  "logo": "https://reveniq.co/apple-touch-icon.png"
-}
-</script>
-
 <style>
   :root {
     --blue: #0066FF;
@@ -60,7 +48,7 @@
   .nav-cta { background: var(--blue); color: #fff; padding: 10px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; text-decoration: none; transition: background 0.2s, transform 0.2s; font-family: 'Syne', sans-serif; }
   .nav-cta:hover { background: var(--blue-dark); transform: translateY(-1px); }
 
-  /* HERO */
+  /* HERO — Full screen animated background */
   .hero {
     min-height: 100vh;
     position: relative;
@@ -72,6 +60,7 @@
     background: #050a14;
     overflow: hidden;
   }
+  /* Animated floating tech particles */
   .particle {
     position: absolute;
     border-radius: 50%;
@@ -85,6 +74,7 @@
     95% { opacity: 0.6; }
     100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
   }
+  /* Zoom in/out tech grid */
   .hero-grid {
     position: absolute; inset: -50%;
     background-image:
@@ -98,6 +88,7 @@
     0%, 100% { transform: scale(1); opacity: 0.6; }
     50% { transform: scale(1.15); opacity: 1; }
   }
+  /* Moving orbs */
   .hero-orb {
     position: absolute; border-radius: 50%;
     filter: blur(80px); pointer-events: none;
@@ -111,6 +102,7 @@
     33% { transform: translate(40px, -30px); }
     66% { transform: translate(-20px, 20px); }
   }
+  /* Scanning line */
   .scan-line {
     position: absolute; left: 0; right: 0; height: 2px;
     background: linear-gradient(90deg, transparent, rgba(0,102,255,0.6), transparent);
@@ -148,6 +140,7 @@
   .hero-title .blue { color: var(--blue); }
   .hero-title .outline { -webkit-text-stroke: 2px rgba(255,255,255,0.3); color: transparent; display: block; }
 
+  /* Typing effect */
   .typing-wrap {
     font-family: 'Syne', sans-serif;
     font-size: clamp(20px, 2.5vw, 32px);
@@ -256,7 +249,7 @@
   .hv-footer { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
   .hv-footer strong { color: var(--text); }
 
-  /* CASE STUDY */
+  /* CASE STUDY — YouTube $100K */
   .case-section { background: var(--surface); }
   .case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 64px; align-items: center; }
   .case-card { background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 8px 48px rgba(0,0,0,0.08); }
@@ -289,7 +282,7 @@
   .case-step-text { font-size: 14px; color: var(--text); line-height: 1.6; }
   .case-step-text strong { font-weight: 600; display: block; margin-bottom: 2px; }
 
-  /* PLATFORMS */
+  /* YOUTUBE VS INSTAGRAM */
   .platforms-section { background: var(--bg); }
   .platforms-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 64px; }
   .platform-card { border-radius: 20px; overflow: hidden; border: 1.5px solid var(--border); transition: all 0.3s; }
@@ -315,6 +308,23 @@
 
   /* CREATORS */
   .creators-section { background: var(--surface); }
+  .creators-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 56px; }
+  .creator-card { background: var(--bg); border: 1.5px solid var(--border); border-radius: 16px; overflow: hidden; transition: all 0.25s; }
+  .creator-card:hover { border-color: var(--blue); transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,102,255,0.1); }
+  .creator-avatar { height: 180px; display: flex; align-items: center; justify-content: center; font-size: 64px; position: relative; overflow: hidden; }
+  .creator-avatar.av1 { background: linear-gradient(135deg, #1a1a2e, #16213e); }
+  .creator-avatar.av2 { background: linear-gradient(135deg, #0d1b2a, #1b2838); }
+  .creator-avatar.av3 { background: linear-gradient(135deg, #1a0533, #2d0b4e); }
+  .creator-avatar.av4 { background: linear-gradient(135deg, #0a1628, #0d2137); }
+  .creator-platform { position: absolute; top: 12px; right: 12px; width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+  .yt-badge { background: #FF0000; }
+  .ig-badge { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+  .creator-body { padding: 20px; }
+  .creator-name { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .creator-niche { font-size: 12px; color: var(--blue); font-weight: 600; margin-bottom: 12px; }
+  .creator-stats { display: flex; gap: 12px; }
+  .c-stat { font-size: 12px; color: var(--muted); }
+  .c-stat strong { color: var(--text); font-weight: 600; display: block; font-size: 14px; }
 
   /* NICHES */
   .niches-section { background: var(--bg); }
@@ -349,7 +359,7 @@
   .form-success h3 { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 8px; }
   .form-success p { font-size: 14px; color: var(--muted); }
 
-  /* SEO */
+  /* SEO hidden content */
   .seo-content { padding: 60px; background: var(--bg); border-top: 1px solid var(--border); }
   .seo-content h1, .seo-content h2, .seo-content h3 { font-family: 'Syne', sans-serif; color: var(--text); margin-bottom: 16px; }
   .seo-content h1 { font-size: 28px; font-weight: 800; }
@@ -383,6 +393,7 @@
     .how-visual { display: none; }
     .case-grid { grid-template-columns: 1fr; }
     .platforms-grid { grid-template-columns: 1fr; }
+    .creators-grid { grid-template-columns: repeat(2, 1fr); }
     .niches-header { flex-direction: column; align-items: flex-start; }
     .contact-grid { grid-template-columns: 1fr; gap: 40px; }
     .form-grid { grid-template-columns: 1fr; }
@@ -406,10 +417,23 @@
     <li><a href="#creators">Creators</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <a href="mailto:khalid@reveniq.co" class="nav-cta">Work With Us</a>
+  <div style="display:flex;align-items:center;gap:16px;">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <a href="https://www.instagram.com/reveniq.co" target="_blank" style="width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#f09433,#dc2743,#bc1888);text-decoration:none;" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="white" width="16" height="16"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/company/reveniq-co/" target="_blank" style="width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:#0077B5;text-decoration:none;" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="white" width="16" height="16"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a href="https://www.facebook.com/share/19sQFNagq2/" target="_blank" style="width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:#1877F2;text-decoration:none;" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" fill="white" width="16" height="16"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      </a>
+    </div>
+    <a href="mailto:khalid@reveniq.co" class="nav-cta">Work With Us</a>
+  </div>
 </nav>
 
-<!-- HERO -->
+<!-- HERO — Full screen animated -->
 <section class="hero" id="home">
   <div class="hero-canvas">
     <div class="hero-grid"></div>
@@ -433,10 +457,22 @@
       <a href="#how" class="btn-ghost">See How It Works</a>
     </div>
     <div class="hero-stats">
-      <div class="h-stat"><div class="h-stat-num">50<em>+</em></div><div class="h-stat-label">Creator Network</div></div>
-      <div class="h-stat"><div class="h-stat-num">3<em>x</em></div><div class="h-stat-label">Avg. ROI</div></div>
-      <div class="h-stat"><div class="h-stat-num">$100<em>K+</em></div><div class="h-stat-label">Revenue Generated</div></div>
-      <div class="h-stat"><div class="h-stat-num">100<em>%</em></div><div class="h-stat-label">Tech & AI Focus</div></div>
+      <div class="h-stat">
+        <div class="h-stat-num">50<em>+</em></div>
+        <div class="h-stat-label">Creator Network</div>
+      </div>
+      <div class="h-stat">
+        <div class="h-stat-num">3<em>x</em></div>
+        <div class="h-stat-label">Avg. ROI</div>
+      </div>
+      <div class="h-stat">
+        <div class="h-stat-num">$100<em>K+</em></div>
+        <div class="h-stat-label">Revenue Generated</div>
+      </div>
+      <div class="h-stat">
+        <div class="h-stat-num">100<em>%</em></div>
+        <div class="h-stat-label">Tech & AI Focus</div>
+      </div>
     </div>
   </div>
 </section>
@@ -463,7 +499,7 @@
   </div>
 </div>
 
-<!-- BRANDS -->
+<!-- BRANDS WE SPECIALIZE IN -->
 <div class="brands-section reveal">
   <p class="brands-label">Brands We Specialize In</p>
   <div class="brands-row">
@@ -641,16 +677,28 @@
       <div class="case-info-title">How we generated <em>$100K</em> from a single campaign.</div>
       <p class="case-info-desc">We identified 3 YouTube creators in the productivity and developer niche with highly engaged audiences that matched the brand's ICP perfectly.</p>
       <div class="case-steps">
-        <div class="case-step"><div class="case-step-icon">🎯</div><div class="case-step-text"><strong>Creator Selection</strong>Selected 3 creators with combined 1.2M subscribers and avg 8% engagement rate in the dev/productivity niche.</div></div>
-        <div class="case-step"><div class="case-step-icon">📝</div><div class="case-step-text"><strong>Script & CTA Design</strong>Built dedicated landing pages + custom discount codes per creator. Scripted the integration naturally into existing content formats.</div></div>
-        <div class="case-step"><div class="case-step-icon">📊</div><div class="case-step-text"><strong>Real-Time Tracking</strong>UTM links + affiliate dashboard tracked every click, trial, and conversion to exact creator source in real time.</div></div>
-        <div class="case-step"><div class="case-step-icon">💰</div><div class="case-step-text"><strong>Result</strong>$100K attributed revenue in 30 days. 8.2% trial-to-paid conversion. 3x return on campaign spend.</div></div>
+        <div class="case-step">
+          <div class="case-step-icon">🎯</div>
+          <div class="case-step-text"><strong>Creator Selection</strong>Selected 3 creators with combined 1.2M subscribers and avg 8% engagement rate in the dev/productivity niche.</div>
+        </div>
+        <div class="case-step">
+          <div class="case-step-icon">📝</div>
+          <div class="case-step-text"><strong>Script & CTA Design</strong>Built dedicated landing pages + custom discount codes per creator. Scripted the integration naturally into existing content formats.</div>
+        </div>
+        <div class="case-step">
+          <div class="case-step-icon">📊</div>
+          <div class="case-step-text"><strong>Real-Time Tracking</strong>UTM links + affiliate dashboard tracked every click, trial, and conversion to exact creator source in real time.</div>
+        </div>
+        <div class="case-step">
+          <div class="case-step-icon">💰</div>
+          <div class="case-step-text"><strong>Result</strong>$100K attributed revenue in 30 days. 8.2% trial-to-paid conversion. 3x return on campaign spend.</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PLATFORMS -->
+<!-- YOUTUBE VS INSTAGRAM -->
 <section class="platforms-section" id="platforms">
   <div class="reveal">
     <div class="section-badge">Platforms</div>
@@ -714,14 +762,16 @@
   </div>
   <div class="reveal" style="margin-top: 56px;">
     <div style="background:#fff; border:1.5px solid var(--border); border-radius:20px; padding:60px 40px; text-align:center; max-width:700px; margin:0 auto; box-shadow:0 8px 48px rgba(0,0,0,0.06); position:relative; overflow:hidden;">
+      <!-- Top accent line -->
       <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),#60a5fa);"></div>
       <div style="font-size:48px;margin-bottom:20px;">🔒</div>
       <div style="font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--text);margin-bottom:12px;">Our Creator Roster is Invite-Only</div>
       <p style="font-size:15px;color:var(--muted);line-height:1.7;max-width:480px;margin:0 auto 32px;">We work with a curated network of verified tech, AI, and SaaS creators. Roster details are shared exclusively with brands after an initial discovery call.</p>
       <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
-        <a href="mailto:partnership@reveniq.co?subject=Creator Roster Request&body=Hi RevenIQ team, I would like to access your creator roster. Please send me the link. Thank you." style="background:var(--blue);color:#fff;padding:14px 32px;border-radius:10px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;text-decoration:none;transition:all 0.2s;box-shadow:0 4px 20px rgba(0,102,255,0.25);cursor:pointer;display:inline-block;">Request Creator Roster →</a>
-        <a href="mailto:partnership@reveniq.co" style="background:var(--surface);color:var(--text);padding:14px 32px;border-radius:10px;font-size:14px;font-weight:600;text-decoration:none;border:1.5px solid var(--border);transition:all 0.2s;">partnership@reveniq.co</a>
+        <a href="/cdn-cgi/l/email-protection#51213023253f34232239382111233427343f38207f323e6e2224333b3432256c12233430253e2371033e22253423710334202434222577333e35286c193871033427343f1800712534303c7d711871263e243d35713d383a3471253e7130323234222271283e24237132233430253e2371233e222534237f71013d343022347122343f35713c3471253934713d383f3a7f710539303f3a71283e247f" style="background:var(--blue);color:#fff;padding:14px 32px;border-radius:10px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;text-decoration:none;transition:all 0.2s;box-shadow:0 4px 20px rgba(0,102,255,0.25);cursor:pointer;-webkit-tap-highlight-color:rgba(0,0,0,0);touch-action:manipulation;display:inline-block;">Request Creator Roster →</a>
+        <a href="/cdn-cgi/l/email-protection#c9b9a8bbbda7acbbbaa1a0b989bbacbfaca7a0b8e7aaa6" style="background:var(--surface);color:var(--text);padding:14px 32px;border-radius:10px;font-size:14px;font-weight:600;text-decoration:none;border:1.5px solid var(--border);transition:all 0.2s;"><span class="__cf_email__" data-cfemail="f0809182849e958283989980b0829586959e9981de939f">[email&#160;protected]</span></a>
       </div>
+      <!-- Stats row -->
       <div style="display:flex;gap:0;justify-content:center;margin-top:40px;padding-top:32px;border-top:1px solid var(--border);">
         <div style="padding:0 32px;border-right:1px solid var(--border);text-align:center;">
           <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--text);">50<span style="color:var(--blue);">+</span></div>
@@ -774,17 +824,16 @@
   <div class="contact-grid">
     <div class="contact-info reveal">
       <p>Fill out the form and we'll get back to you within 24 hours with a tailored creator strategy for your brand.</p>
-      <div class="contact-detail"><div class="icon">✉️</div><div>General Inquiries<br><a href="mailto:khalid@reveniq.co">khalid@reveniq.co</a></div></div>
-      <div class="contact-detail"><div class="icon">🤝</div><div>Partnerships<br><a href="mailto:partnership@reveniq.co">partnership@reveniq.co</a></div></div>
+      <div class="contact-detail"><div class="icon">✉️</div><div>General Inquiries<br><a href="/cdn-cgi/l/email-protection#c5aeada4a9aca185b7a0b3a0abacb4eba6aa"><span class="__cf_email__" data-cfemail="a2c9cac3cecbc6e2d0c7d4c7cccbd38cc1cd">[email&#160;protected]</span></a></div></div>
+      <div class="contact-detail"><div class="icon">🤝</div><div>Partnerships<br><a href="/cdn-cgi/l/email-protection#8cfcedfef8e2e9feffe4e5fcccfee9fae9e2e5fda2efe3"><span class="__cf_email__" data-cfemail="10607162647e75626378796050627566757e79613e737f">[email&#160;protected]</span></a></div></div>
       <div class="contact-detail"><div class="icon">⏱️</div><div>Response Time<br><strong>Within 24 hours</strong></div></div>
       <div class="contact-detail"><div class="icon">🌐</div><div>Website<br><a href="https://reveniq.co">reveniq.co</a></div></div>
     </div>
     <div class="reveal">
       <div class="form-card">
-        <form method="POST" action="https://api.web3forms.com/submit" id="inquiryForm">
-          <input type="hidden" name="access_key" value="cde5d841-8ca2-4ff2-941c-c9d856cddc15" />
-          <input type="hidden" name="subject" value="New Campaign Inquiry — RevenIQ" />
-          <input type="checkbox" name="botcheck" style="display:none" />
+        <form name="reveniq-inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="inquiryForm">
+          <input type="hidden" name="form-name" value="reveniq-inquiry" />
+          <p style="display:none"><input name="bot-field" /></p>
           <div class="form-grid">
             <div class="form-group"><label>Brand Name <span>*</span></label><input type="text" name="brand-name" placeholder="e.g. Notion, Copy.ai" required /></div>
             <div class="form-group"><label>Your Name <span>*</span></label><input type="text" name="your-name" placeholder="Full name" required /></div>
@@ -867,14 +916,27 @@
     <li><a href="#platforms">Platforms</a></li>
     <li><a href="#creators">Creators</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="mailto:partnership@reveniq.co">partnership@reveniq.co</a></li>
+    <li><a href="/cdn-cgi/l/email-protection#88f8e9fafce6edfafbe0e1f8c8faedfeede6e1f9a6ebe7"><span class="__cf_email__" data-cfemail="b1c1d0c3c5dfd4c3c2d9d8c1f1c3d4c7d4dfd8c09fd2de">[email&#160;protected]</span></a></li>
   </ul>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <a href="https://www.instagram.com/reveniq.co" target="_blank" style="width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#f09433,#dc2743,#bc1888);text-decoration:none;opacity:0.8;" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" fill="white" width="18" height="18"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    </a>
+    <a href="https://www.linkedin.com/company/reveniq-co/" target="_blank" style="width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:#0077B5;text-decoration:none;opacity:0.8;" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24" fill="white" width="18" height="18"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+    </a>
+    <a href="https://www.facebook.com/share/19sQFNagq2/" target="_blank" style="width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:#1877F2;text-decoration:none;opacity:0.8;" aria-label="Facebook">
+      <svg viewBox="0 0 24 24" fill="white" width="18" height="18"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    </a>
+  </div>
   <p class="footer-copy">© 2025 RevenIQ. All rights reserved.</p>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Navbar scroll
   window.addEventListener('scroll', () => document.getElementById('nav').classList.toggle('scrolled', scrollY > 40));
 
+  // Typing effect
   const phrases = ['Connecting Brands With Creators That Convert', 'AI & SaaS Influencer Marketing', 'Real Revenue. Not Just Impressions.', 'B2B Creator Partnerships That Drive Growth'];
   let pi = 0, ci = 0, deleting = false;
   const el = document.getElementById('typingText');
@@ -891,6 +953,7 @@
   }
   setTimeout(type, 1200);
 
+  // Particles
   function createParticles() {
     const container = document.getElementById('particles');
     const colors = ['#0066FF', '#60a5fa', '#00e5ff', '#7b5ea7', '#ffffff'];
@@ -898,42 +961,30 @@
       const p = document.createElement('div');
       p.className = 'particle';
       const size = Math.random() * 6 + 2;
-      p.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;background:${colors[Math.floor(Math.random()*colors.length)]};animation-duration:${Math.random()*12+8}s;animation-delay:${Math.random()*8}s;opacity:0;`;
+      p.style.cssText = `
+        width:${size}px; height:${size}px;
+        left:${Math.random()*100}%;
+        background:${colors[Math.floor(Math.random()*colors.length)]};
+        animation-duration:${Math.random()*12+8}s;
+        animation-delay:${Math.random()*8}s;
+        opacity:0;
+      `;
       container.appendChild(p);
     }
   }
   createParticles();
 
+  // Scroll reveal
   const obs = new IntersectionObserver(entries => {
     entries.forEach((e, i) => { if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 80); });
   }, { threshold: 0.08 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
+  // Bar chart animation
   const barObs = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) { e.target.querySelectorAll('.bar-fill').forEach(b => b.style.width = b.dataset.w + '%'); barObs.unobserve(e.target); }
     });
   }, { threshold: 0.3 });
   const hv = document.getElementById('howVisual');
-  if (hv) barObs.observe(hv);
-
-  function toggleCard(card) {
-    const wasActive = card.classList.contains('active');
-    document.querySelectorAll('.service-card').forEach(c => c.classList.remove('active'));
-    if (!wasActive) card.classList.add('active');
-  }
-
-  document.querySelectorAll('.niche-tag').forEach(t => t.addEventListener('click', () => t.classList.toggle('active')));
-
-  const form = document.getElementById('inquiryForm');
-  if (form) {
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      fetch('https://api.web3forms.com/submit', { method: 'POST', body: new FormData(form) })
-        .then(() => { form.style.display = 'none'; document.getElementById('formSuccess').style.display = 'block'; })
-        .catch(() => alert('Something went wrong. Please email us at khalid@reveniq.co'));
-    });
-  }
-</script>
-</body>
-</html>
+  if (hv) barObs.observe(
